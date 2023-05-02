@@ -19,10 +19,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bunddleIdentifier":"com.colsubsidio.norte"
+      "bunddleIdentifier": "com.colsubsidio.norte"
     },
     "android": {
-      "package":"com.colsubsidio.norte",
+      "package": "com.colsubsidio.norte",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -39,6 +39,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fb6926ba-3051-4710-ac2a-7379aea97c95"
+      }
     }
   }
 }

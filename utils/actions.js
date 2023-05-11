@@ -15,165 +15,185 @@ export const isUserLogged = () => {
 };
 
 export const getCurrentUser = () => {
-  return firebase.auth().currentUser
-}
+  return firebase.auth().currentUser;
+};
 
 export const closeSession = () => {
-  return firebase.auth().signOut()
-}
+  return firebase.auth().signOut();
+};
 
-export const registerUser = async(email, password) =>{
-  const result = { statusResponse: true, error: null}
+export const registerUser = async (email, password) => {
+  const result = { statusResponse: true, error: null };
   try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password)
-  } catch(error){
-      result.statusResponse= false
-      result.error = "Este correo ya existe."
-  }
-  return result
-}
-
-export const loginWithEmailAndPassword = async(email, password) => {
-  const result = { statusResponse: true, error: null}
-  try {
-      await firebase.auth().signInWithEmailAndPassword(email, password)
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
   } catch (error) {
-      result.statusResponse = false
-      result.error = "Usuario o contraseña no válidos."
+    result.statusResponse = false;
+    result.error = "Este correo ya existe.";
   }
-  return result
-}
+  return result;
+};
+
+export const loginWithEmailAndPassword = async (email, password) => {
+  const result = { statusResponse: true, error: null };
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+  } catch (error) {
+    result.statusResponse = false;
+    result.error = "Usuario o contraseña no válidos.";
+  }
+  return result;
+};
 
 //Metodo Actualizar foto de perfil
-export const uploadImage = async(image, path, name) => {
-  const result = { statusResponse: false, error: null, url: null }
-  const ref = firebase.storage().ref(path).child(name)
-  const blob = await fileToBlob(image)
+export const uploadImage = async (image, path, name) => {
+  const result = { statusResponse: false, error: null, url: null };
+  const ref = firebase.storage().ref(path).child(name);
+  const blob = await fileToBlob(image);
   try {
-      await ref.put(blob)
-      const url = await firebase.storage().ref(`${path}/${name}`).getDownloadURL()
-      result.statusResponse = true
-      result.url = url
+    await ref.put(blob);
+    const url = await firebase
+      .storage()
+      .ref(`${path}/${name}`)
+      .getDownloadURL();
+    result.statusResponse = true;
+    result.url = url;
   } catch (error) {
-      result.error = error
+    result.error = error;
   }
-  return result
-}
+  return result;
+};
 
-export const updateProfile = async(data) =>{
-  const result = { statusResponse: true, error: null}
+export const updateProfile = async (data) => {
+  const result = { statusResponse: true, error: null };
   try {
-    await firebase.auth().currentUser.updateProfile(data)
+    await firebase.auth().currentUser.updateProfile(data);
   } catch (error) {
-    result.statusResponse = false
-    result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result
-}
+  return result;
+};
 
-export const reauthenticate = async(password) =>{
-  const result = { statusResponse: true, error: null }
-  const user = getCurrentUser()
-  const credentials = firebase.auth.EmailAuthProvider.credential(user.email, password)
-  
+export const reauthenticate = async (password) => {
+  const result = { statusResponse: true, error: null };
+  const user = getCurrentUser();
+  const credentials = firebase.auth.EmailAuthProvider.credential(
+    user.email,
+    password
+  );
+
   try {
-    await user.reauthenticateWithCredential(credentials)
+    await user.reauthenticateWithCredential(credentials);
   } catch (error) {
-    result.statusResponse = false
-    result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result
-}
+  return result;
+};
 
-export const updateEmail = async(email) =>{
-  const result = { statusResponse: true, error: null}
+export const updateEmail = async (email) => {
+  const result = { statusResponse: true, error: null };
   try {
-    await firebase.auth().currentUser.updateEmail(email)
+    await firebase.auth().currentUser.updateEmail(email);
   } catch (error) {
-    result.statusResponse = false
-    result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result
-}
+  return result;
+};
 
-export const updatePassword = async(password) => {
-  const result = { statusResponse: true, error: null }
+export const updatePassword = async (password) => {
+  const result = { statusResponse: true, error: null };
   try {
-      await firebase.auth().currentUser.updatePassword(password)
+    await firebase.auth().currentUser.updatePassword(password);
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result     
-}
+  return result;
+};
 
-export const addDocumentWithoutId = async(collection, data) => {
-  const result = { statusResponse: true, error: null }
+export const addDocumentWithoutId = async (collection, data) => {
+  const result = { statusResponse: true, error: null };
   try {
-      await app.collection(collection).add(data)
+    await app.collection(collection).add(data);
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result     
-} 
+  return result;
+};
 
-export const getProjects = async(limitProjects) => {
-  const result = { statusResponse: true, error: null, projects: [], startProject: null }
+export const getProjects = async (limitProjects) => {
+  const result = {
+    statusResponse: true,
+    error: null,
+    projects: [],
+    startProject: null,
+  };
   try {
-      const response = await app.collection("projects").orderBy("name", "desc").limit(limitProjects).get()
-      if(response.docs.length > 0 ){
-        result.startProject = response.docs[ response.docs.length - 1 ]
-      }
-      response.forEach((doc) => {
-        const project = doc.data()
-        project.id = doc.id
-        result.projects.push(project)
-      })
+    const response = await app
+      .collection("projects")
+      .orderBy("name", "desc")
+      .limit(limitProjects)
+      .get();
+    if (response.docs.length > 0) {
+      result.startProject = response.docs[response.docs.length - 1];
+    }
+    response.forEach((doc) => {
+      const project = doc.data();
+      project.id = doc.id;
+      result.projects.push(project);
+    });
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result     
-}
+  return result;
+};
 
-export const getMoreProjects = async(limitProjects, startProject) => {
-  const result = { statusResponse: true, error: null, projects: [], startProject: null }
+export const getMoreProjects = async (limitProjects, startProject) => {
+  const result = {
+    statusResponse: true,
+    error: null,
+    projects: [],
+    startProject: null,
+  };
   try {
-      const response = await app
+    const response = await app
       .collection("projects")
       .orderBy("name", "desc")
       .limit(limitProjects)
       .startAfter(startProject.data().createAt)
       .limit(limitProjects)
-      .get()
-      if(response.docs.length > 0 ){
-        result.startProject = response.docs[ response.docs.length - 1 ]
-      }
-      response.forEach((doc) => {
-        const project = doc.data()
-        project.celog = doc.celog
-        result.projects.push(project)
-      })
+      .get();
+    if (response.docs.length > 0) {
+      result.startProject = response.docs[response.docs.length - 1];
+    }
+    response.forEach((doc) => {
+      const project = doc.data();
+      project.celog = doc.celog;
+      result.projects.push(project);
+    });
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result     
-}
+  return result;
+};
 
-export const getDocumentById = async(collection, id) => {
-  const result = { statusResponse: true, error: null, document: null }
+export const getDocumentById = async (collection, id) => {
+  const result = { statusResponse: true, error: null, document: null };
   try {
-      const response = await app.collection(collection).doc(id).get()
-      result.document = response.data()
-      result.document.id = response.id
+    const response = await app.collection(collection).doc(id).get();
+    result.document = response.data();
+    result.document.id = response.id;
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result   
-}
+  return result;
+};
 
 export const deleteProjectFromDatabase = async (projectId) => {
   try {
@@ -184,81 +204,131 @@ export const deleteProjectFromDatabase = async (projectId) => {
   }
 };
 
-export const addContractingDocument = async (projectId, documentName, startDate, endDate) => {
-  const result = { statusResponse: true, error: null }
+export const addContractingDocument = async (
+  projectId,
+  documentName,
+  startDate,
+  endDate
+) => {
+  const result = { statusResponse: true, error: null };
   try {
-      await app.collection('projects').doc(projectId).collection('contracting').doc(documentName).set({ startDate, endDate })
-      console.log(`Documento ${documentName} agregado a la colección 'contracting' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`)
+    await app
+      .collection("projects")
+      .doc(projectId)
+      .collection("contracting")
+      .doc(documentName)
+      .set({ startDate, endDate });
+    console.log(
+      `Documento ${documentName} agregado a la colección 'contracting' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`
+    );
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result
-}
+  return result;
+};
 
-export const addInfrastructureDocument = async (projectId, documentName, startDate, endDate) => {
-  const result = { statusResponse: true, error: null }
+export const addInfrastructureDocument = async (
+  projectId,
+  documentName,
+  startDate,
+  endDate
+) => {
+  const result = { statusResponse: true, error: null };
   try {
-      await app.collection('projects').doc(projectId).collection('infrastructure').doc(documentName).set({ startDate, endDate })
-      console.log(`Documento ${documentName} agregado a la colección 'infrastructure' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`)
+    await app
+      .collection("projects")
+      .doc(projectId)
+      .collection("infrastructure")
+      .doc(documentName)
+      .set({ startDate, endDate });
+    console.log(
+      `Documento ${documentName} agregado a la colección 'infrastructure' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`
+    );
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result
-}
+  return result;
+};
 
-export const addTechnologyDocument = async (projectId, documentName, startDate, endDate) => {
-  const result = { statusResponse: true, error: null }
+export const addTechnologyDocument = async (
+  projectId,
+  documentName,
+  startDate,
+  endDate
+) => {
+  const result = { statusResponse: true, error: null };
   try {
-      await app.collection('projects').doc(projectId).collection('technology').doc(documentName).set({ startDate, endDate })
-      console.log(`Documento ${documentName} agregado a la colección 'technology' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`)
+    await app
+      .collection("projects")
+      .doc(projectId)
+      .collection("technology")
+      .doc(documentName)
+      .set({ startDate, endDate });
+    console.log(
+      `Documento ${documentName} agregado a la colección 'technology' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`
+    );
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result
-}
+  return result;
+};
 
-export const addHumanTalentDocument = async (projectId, documentName, startDate, endDate) => {
-  const result = { statusResponse: true, error: null }
+export const addHumanTalentDocument = async (
+  projectId,
+  documentName,
+  startDate,
+  endDate
+) => {
+  const result = { statusResponse: true, error: null };
   try {
-      await app.collection('projects').doc(projectId).collection('humanTalent').doc(documentName).set({ startDate, endDate })
-      console.log(`Documento ${documentName} agregado a la colección 'humanTalent' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`)
+    await app
+      .collection("projects")
+      .doc(projectId)
+      .collection("humanTalent")
+      .doc(documentName)
+      .set({ startDate, endDate });
+    console.log(
+      `Documento ${documentName} agregado a la colección 'humanTalent' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`
+    );
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result
-}
+  return result;
+};
 
-export const addAdministrativeServicesDocument = async (projectId, documentName, startDate, endDate) => {
-  const result = { statusResponse: true, error: null }
+export const addAdministrativeServicesDocument = async (
+  projectId,
+  documentName,
+  startDate,
+  endDate
+) => {
+  const result = { statusResponse: true, error: null };
   try {
-      await app.collection('projects').doc(projectId).collection('AdministrativeServices').doc(documentName).set({ startDate, endDate })
-      console.log(`Documento ${documentName} agregado a la colección 'AdministrativeServices' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`)
+    await app
+      .collection("projects")
+      .doc(projectId)
+      .collection("AdministrativeServices")
+      .doc(documentName)
+      .set({ startDate, endDate });
+    console.log(
+      `Documento ${documentName} agregado a la colección 'AdministrativeServices' para el proyecto con ID ${projectId} con fecha de inicio ${startDate} y fecha de fin ${endDate}`
+    );
   } catch (error) {
-      result.statusResponse = false
-      result.error = error
+    result.statusResponse = false;
+    result.error = error;
   }
-  return result
-}
-
-
-
-
-
-
-
-
-
-
+  return result;
+};
 
 // const projectsRef = firebase.firestore().collection('projects');
 
 // export const addContractingDocuments = async (id, startDate, endDate) => {
 //   console.log('addContractingDocuments called with:...', id, startDate, endDate);
-  
+
 //   // Obtener una lista de todos los IDs de los documentos de proyectos
 //   const querySnapshot = await projectsRef.where('name', '==', 'Sf Castilla').get();
 // if (!querySnapshot.empty) {
@@ -266,7 +336,7 @@ export const addAdministrativeServicesDocument = async (projectId, documentName,
 //   const id = projectDoc.id;
 //   console.log('id:', id);
 // };
-  
+
 //   // Obtener el documento del proyecto específico
 //   const projectDoc = await projectsRef.doc(id).get();
 //   if (projectDoc.exists) {
@@ -280,8 +350,6 @@ export const addAdministrativeServicesDocument = async (projectId, documentName,
 //       console.log('projectDoc does not exist');
 //   }
 // }
-
-
 
 // export const handleAddContracting = async(id, startDate, endDate) => {
 //   const result = { statusResponse: true, error: null }

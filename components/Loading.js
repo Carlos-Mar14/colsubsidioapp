@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import { Overlay } from "react-native-elements";
 import { ActivityIndicator } from "react-native";
@@ -12,13 +12,8 @@ export default function Loading({ isVisible, Text }) {
       overlayStyle={styles.overlay}
     >
       <View style={styles.view}>
-        <ActivityIndicator 
-            size="large" 
-            color="#0464b4" 
-        />
-        {
-            Text && <Text style={styles.text}>{Text}</Text>
-        }
+        <ActivityIndicator size="large" color="#0464b4" />
+        {Text && <Text style={styles.text}>{Text}</Text>}
       </View>
     </Overlay>
   );
@@ -40,6 +35,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#0464b4",
-    marginTop: 10
-  }
+    marginTop: 10,
+  },
 });

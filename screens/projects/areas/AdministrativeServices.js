@@ -1,13 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import moment from 'moment';
-import { addAdministrativeServicesDocument } from '../../../utils/actions'
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button,
+  KeyboardAvoidingView,
+  ScrollView,
+  Alert,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import moment from "moment";
+import { addAdministrativeServicesDocument } from "../../../utils/actions";
 
-export default function AdministrativeServices( { route: { params: { projectId } } } ) {
+export default function AdministrativeServices({
+  route: {
+    params: { projectId },
+  },
+}) {
   console.log("ID del proyecto recibido:", projectId);
-  const [startDateInventoryValidation, setStartDateInventoryValidation] = useState("");
-  const [endDateInventoryValidation, setEndDateInventoryValidation] = useState("");
+  const [startDateInventoryValidation, setStartDateInventoryValidation] =
+    useState("");
+  const [endDateInventoryValidation, setEndDateInventoryValidation] =
+    useState("");
   const [startDateFumigation, setStartDateFumigation] = useState("");
   const [endDateFumigation, setEndDateFumigation] = useState("");
   const [startDateHousekeeping, setStartDateHousekeeping] = useState("");
@@ -79,7 +94,9 @@ export default function AdministrativeServices( { route: { params: { projectId }
   };
 
   const handleSaveInventoryValidation = async () => {
-    if (validateDates(startDateInventoryValidation, endDateInventoryValidation)) {
+    if (
+      validateDates(startDateInventoryValidation, endDateInventoryValidation)
+    ) {
       addAdministrativeServicesDocument(
         projectId,
         "Receipt and Validation Inventory",
@@ -94,7 +111,10 @@ export default function AdministrativeServices( { route: { params: { projectId }
       );
 
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
 
       // Almacenar las fechas en el dispositivo del usuario
       try {
@@ -128,7 +148,10 @@ export default function AdministrativeServices( { route: { params: { projectId }
       );
 
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
 
       // Almacenar las fechas en el dispositivo del usuario
       try {
@@ -162,7 +185,10 @@ export default function AdministrativeServices( { route: { params: { projectId }
       );
 
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
 
       // Almacenar las fechas en el dispositivo del usuario
       try {
@@ -197,7 +223,10 @@ export default function AdministrativeServices( { route: { params: { projectId }
           onChangeText={setEndDateInventoryValidation}
           value={endDateInventoryValidation}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveInventoryValidation} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveInventoryValidation}
+        />
         <Text style={styles.title}>Incluir Fumigación</Text>
         <TextInput
           style={styles.input}
@@ -249,4 +278,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 });
-

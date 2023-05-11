@@ -1,35 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import moment from 'moment';
-import { addInfrastructureDocument } from '../../../utils/actions'
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  KeyboardAvoidingView,
+  ScrollView,
+  Alert,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import moment from "moment";
+import { addInfrastructureDocument } from "../../../utils/actions";
 
-export default function Infrastructure( { route: { params: { projectId } } } ) {
+export default function Infrastructure({
+  route: {
+    params: { projectId },
+  },
+}) {
   console.log("ID del proyecto recibido:", projectId);
   const [startDateTechnicalVisit, setStartDateTechnicalVisit] = useState("");
   const [endDateTechnicalVisit, setEndDateTechnicalVisit] = useState("");
-  const [startDateArchitecturalPlantDesign, setStartDateArchitecturalPlantDesign] = useState("");
-  const [endDateArchitecturalPlantDesign, setEndDateArchitecturalPlantDesign] = useState("");
-  const [startDateAirConditioningDesign, setStartDateAirConditioningDesign] = useState("");
-  const [endDateAirConditioningDesign, setEndDateAirConditioningDesign] = useState("");
-  const [startDateElectricalDesign, setStartDateElectricalDesign] = useState("");
+  const [
+    startDateArchitecturalPlantDesign,
+    setStartDateArchitecturalPlantDesign,
+  ] = useState("");
+  const [endDateArchitecturalPlantDesign, setEndDateArchitecturalPlantDesign] =
+    useState("");
+  const [startDateAirConditioningDesign, setStartDateAirConditioningDesign] =
+    useState("");
+  const [endDateAirConditioningDesign, setEndDateAirConditioningDesign] =
+    useState("");
+  const [startDateElectricalDesign, setStartDateElectricalDesign] =
+    useState("");
   const [endDateElectricalDesign, setEndDateElectricalDesign] = useState("");
   const [startDateBudgets, setStartDateBudgets] = useState("");
   const [endDateBudgets, setEndDateBudgets] = useState("");
-  const [startDatePurchaseOfEndowments, setStartDatePurchaseOfEndowments] = useState("");
-  const [endDatePurchaseOfEndowments, setEndDatePurchaseOfEndowments] = useState("");
-  const [startDateInvitationToQuote, setStartDateInvitationToQuote] = useState("");
+  const [startDatePurchaseOfEndowments, setStartDatePurchaseOfEndowments] =
+    useState("");
+  const [endDatePurchaseOfEndowments, setEndDatePurchaseOfEndowments] =
+    useState("");
+  const [startDateInvitationToQuote, setStartDateInvitationToQuote] =
+    useState("");
   const [endDateInvitationToQuote, setEndDateInvitationToQuote] = useState("");
-  const [startDateSupplierAssignment, setStartDateSupplierAssignment] = useState("");
-  const [endDateSupplierAssignment, setEndDateSupplierAssignment] = useState("");
+  const [startDateSupplierAssignment, setStartDateSupplierAssignment] =
+    useState("");
+  const [endDateSupplierAssignment, setEndDateSupplierAssignment] =
+    useState("");
   const [startDateCivilWorks, setStartDateCivilWorks] = useState("");
   const [endDateCivilWorks, setEndDateCivilWorks] = useState("");
   const [startDateDeliveryToUES, setStartDateDeliveryToUES] = useState("");
   const [endDateDeliveryToUES, setEndDateDeliveryToUES] = useState("");
   const [startDateMTTOReceipt, setStartDateMTTOReceipt] = useState("");
   const [endDateMTTOReceipt, setEndDateMTTOReceipt] = useState("");
-  const [startDateFirefightersCertificate, setStartDateFirefightersCertificate] = useState("");
-  const [endDateFirefightersCertificate, setEndDateFirefightersCertificate] = useState("");
+  const [
+    startDateFirefightersCertificate,
+    setStartDateFirefightersCertificate,
+  ] = useState("");
+  const [endDateFirefightersCertificate, setEndDateFirefightersCertificate] =
+    useState("");
   const [startDatePgirasa, setStartDatePgirasa] = useState("");
   const [endDatePgirasa, setEndDatePgirasa] = useState("");
 
@@ -49,26 +77,33 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         if (storedEndDateTechnicalVisit) {
           setEndDateTechnicalVisit(storedEndDateTechnicalVisit);
         }
-        
 
-        const storedStartDateArchitecturalPlantDesign = await AsyncStorage.getItem(
-          "startDateArchitecturalPlantDesign-" + projectId
-        );
+        const storedStartDateArchitecturalPlantDesign =
+          await AsyncStorage.getItem(
+            "startDateArchitecturalPlantDesign-" + projectId
+          );
         if (storedStartDateArchitecturalPlantDesign) {
-          setStartDateArchitecturalPlantDesign(storedStartDateArchitecturalPlantDesign);
+          setStartDateArchitecturalPlantDesign(
+            storedStartDateArchitecturalPlantDesign
+          );
         }
-        const storedEndDateArchitecturalPlantDesign = await AsyncStorage.getItem(
-          "storedEndDateArchitecturalPlantDesign-" + projectId
-        );
+        const storedEndDateArchitecturalPlantDesign =
+          await AsyncStorage.getItem(
+            "storedEndDateArchitecturalPlantDesign-" + projectId
+          );
         if (storedEndDateArchitecturalPlantDesign) {
-          setEndDateArchitecturalPlantDesign(storedEndDateArchitecturalPlantDesign);
+          setEndDateArchitecturalPlantDesign(
+            storedEndDateArchitecturalPlantDesign
+          );
         }
 
         const storedStartDateAirConditioningDesign = await AsyncStorage.getItem(
           "startDateAirConditioningDesign-" + projectId
         );
         if (storedStartDateAirConditioningDesign) {
-          setStartDateAirConditioningDesign(storedStartDateAirConditioningDesign);
+          setStartDateAirConditioningDesign(
+            storedStartDateAirConditioningDesign
+          );
         }
         const storedEndDateAirConditioningDesign = await AsyncStorage.getItem(
           "endDateAirConditioningDesign-" + projectId
@@ -76,7 +111,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         if (storedEndDateAirConditioningDesign) {
           setEndDateAirConditioningDesign(storedEndDateAirConditioningDesign);
         }
-    
+
         const storedStartDateElectricalDesign = await AsyncStorage.getItem(
           "startDateElectricalDesign-" + projectId
         );
@@ -89,7 +124,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         if (storedEndDateElectricalDesign) {
           setEndDateElectricalDesign(storedEndDateElectricalDesign);
         }
-    
+
         const storedStartDateBudgets = await AsyncStorage.getItem(
           "startDateBudgets-" + projectId
         );
@@ -102,7 +137,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         if (storedEndDateBudgets) {
           setEndDateBudgets(storedEndDateBudgets);
         }
-    
+
         const storedStartDatePurchaseOfEndowments = await AsyncStorage.getItem(
           "startDatePurchaseOfEndowments-" + projectId
         );
@@ -115,7 +150,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         if (storedEndDatePurchaseOfEndowments) {
           setEndDatePurchaseOfEndowments(storedEndDatePurchaseOfEndowments);
         }
-    
+
         const storedStartDateInvitationToQuote = await AsyncStorage.getItem(
           "startDateInvitationToQuote-" + projectId
         );
@@ -181,31 +216,36 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
           setEndDateMTTOReceipt(storedEndDateMTTOReceipt);
         }
 
-        const storedStartDateFirefightersCertificate = await AsyncStorage.getItem(
-          "startDateFirefightersCertificate-" + projectId
+        const storedStartDateFirefightersCertificate =
+          await AsyncStorage.getItem(
+            "startDateFirefightersCertificate-" + projectId
           );
-          if (storedStartDateFirefightersCertificate) {
-          setStartDateFirefightersCertificate(storedStartDateFirefightersCertificate);
-          }
-          const storedEndDateFirefightersCertificate = await AsyncStorage.getItem(
+        if (storedStartDateFirefightersCertificate) {
+          setStartDateFirefightersCertificate(
+            storedStartDateFirefightersCertificate
+          );
+        }
+        const storedEndDateFirefightersCertificate = await AsyncStorage.getItem(
           "endDateFirefightersCertificate-" + projectId
+        );
+        if (storedEndDateFirefightersCertificate) {
+          setEndDateFirefightersCertificate(
+            storedEndDateFirefightersCertificate
           );
-          if (storedEndDateFirefightersCertificate) {
-          setEndDateFirefightersCertificate(storedEndDateFirefightersCertificate);
-          }
+        }
 
-          const storedStartDatePgirasa = await AsyncStorage.getItem(
+        const storedStartDatePgirasa = await AsyncStorage.getItem(
           "startDatePgirasa-" + projectId
-          );
-          if (storedStartDatePgirasa) {
+        );
+        if (storedStartDatePgirasa) {
           setStartDatePgirasa(storedStartDatePgirasa);
-          }
-          const storedEndDatePgirasa = await AsyncStorage.getItem(
+        }
+        const storedEndDatePgirasa = await AsyncStorage.getItem(
           "endDatePgirasa-" + projectId
-          );
-          if (storedEndDatePgirasa) {
+        );
+        if (storedEndDatePgirasa) {
           setEndDatePgirasa(storedEndDatePgirasa);
-          }
+        }
         // ... Agregar más código para recuperar las demás fechas almacenadas
       } catch (error) {
         console.log(error);
@@ -246,10 +286,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateTechnicalVisit,
         endDateTechnicalVisit
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -267,7 +310,12 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
   };
 
   const handleSaveArchitecturalPlantDesign = async () => {
-    if (validateDates(startDateArchitecturalPlantDesign, endDateArchitecturalPlantDesign)) {
+    if (
+      validateDates(
+        startDateArchitecturalPlantDesign,
+        endDateArchitecturalPlantDesign
+      )
+    ) {
       addInfrastructureDocument(
         projectId,
         "Architectural plant design",
@@ -280,10 +328,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateArchitecturalPlantDesign,
         endDateArchitecturalPlantDesign
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -301,7 +352,12 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
   };
 
   const handleSaveAirConditioningDesign = async () => {
-    if (validateDates(startDateAirConditioningDesign, endDateAirConditioningDesign)) {
+    if (
+      validateDates(
+        startDateAirConditioningDesign,
+        endDateAirConditioningDesign
+      )
+    ) {
       addInfrastructureDocument(
         projectId,
         "Air conditioning design",
@@ -314,10 +370,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateAirConditioningDesign,
         endDateAirConditioningDesign
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -348,10 +407,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateElectricalDesign,
         endDateElectricalDesign
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -367,7 +429,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   const handleSaveBudgets = async () => {
     if (validateDates(startDateBudgets, endDateBudgets)) {
       addInfrastructureDocument(
@@ -382,10 +444,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateBudgets,
         endDateBudgets
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -403,7 +468,9 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
   };
 
   const handleSavePurchaseOfEndowments = async () => {
-    if (validateDates(startDatePurchaseOfEndowments, endDatePurchaseOfEndowments)) {
+    if (
+      validateDates(startDatePurchaseOfEndowments, endDatePurchaseOfEndowments)
+    ) {
       addInfrastructureDocument(
         projectId,
         "Purchase of endowments",
@@ -416,10 +483,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDatePurchaseOfEndowments,
         endDatePurchaseOfEndowments
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -435,7 +505,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   const handleSaveInvitationToQuote = async () => {
     if (validateDates(startDateInvitationToQuote, endDateInvitationToQuote)) {
       addInfrastructureDocument(
@@ -450,10 +520,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateInvitationToQuote,
         endDateInvitationToQuote
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -469,7 +542,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   const handleSaveSupplierAssignment = async () => {
     if (validateDates(startDateSupplierAssignment, endDateSupplierAssignment)) {
       addInfrastructureDocument(
@@ -484,10 +557,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateSupplierAssignment,
         endDateSupplierAssignment
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -517,10 +593,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateCivilWorks,
         endDateCivilWorks
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -536,7 +615,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   const handleSaveDeliveryToUES = async () => {
     if (validateDates(startDateDeliveryToUES, endDateDeliveryToUES)) {
       addInfrastructureDocument(
@@ -551,10 +630,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateDeliveryToUES,
         endDateDeliveryToUES
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -570,7 +652,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   const handleSaveMTTOReceipt = async () => {
     if (validateDates(startDateMTTOReceipt, endDateMTTOReceipt)) {
       addInfrastructureDocument(
@@ -585,10 +667,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateMTTOReceipt,
         endDateMTTOReceipt
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -606,7 +691,12 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
   };
 
   const handleSaveFirefightersCertificate = async () => {
-    if (validateDates(startDateFirefightersCertificate, endDateFirefightersCertificate)) {
+    if (
+      validateDates(
+        startDateFirefightersCertificate,
+        endDateFirefightersCertificate
+      )
+    ) {
       addInfrastructureDocument(
         projectId,
         "Firefighters certificate",
@@ -619,10 +709,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDateFirefightersCertificate,
         endDateFirefightersCertificate
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -638,7 +731,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   const handleSavePgirasa = async () => {
     if (validateDates(startDatePgirasa, endDatePgirasa)) {
       addInfrastructureDocument(
@@ -653,10 +746,13 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
         startDatePgirasa,
         endDatePgirasa
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -672,7 +768,7 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
@@ -704,7 +800,10 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateArchitecturalPlantDesign}
           value={endDateArchitecturalPlantDesign}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveArchitecturalPlantDesign} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveArchitecturalPlantDesign}
+        />
 
         <Text style={styles.title}>Diseño de Aires Acondicionados</Text>
         <TextInput
@@ -719,7 +818,10 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateAirConditioningDesign}
           value={endDateAirConditioningDesign}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveAirConditioningDesign} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveAirConditioningDesign}
+        />
 
         <Text style={styles.title}>Diseño Eléctrico</Text>
         <TextInput
@@ -734,7 +836,10 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateElectricalDesign}
           value={endDateElectricalDesign}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveElectricalDesign} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveElectricalDesign}
+        />
 
         <Text style={styles.title}>Presupuestos</Text>
         <TextInput
@@ -764,7 +869,10 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
           onChangeText={setEndDatePurchaseOfEndowments}
           value={endDatePurchaseOfEndowments}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSavePurchaseOfEndowments} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSavePurchaseOfEndowments}
+        />
 
         <Text style={styles.title}>Invitación a Cotizar</Text>
         <TextInput
@@ -779,7 +887,10 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateInvitationToQuote}
           value={endDateInvitationToQuote}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveInvitationToQuote} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveInvitationToQuote}
+        />
 
         <Text style={styles.title}>Asignación de Proveedor</Text>
         <TextInput
@@ -794,7 +905,10 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateSupplierAssignment}
           value={endDateSupplierAssignment}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveSupplierAssignment} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveSupplierAssignment}
+        />
 
         <Text style={styles.title}>Obras Civil</Text>
         <TextInput
@@ -854,7 +968,10 @@ export default function Infrastructure( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateFirefightersCertificate}
           value={endDateFirefightersCertificate}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveFirefightersCertificate} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveFirefightersCertificate}
+        />
 
         <Text style={styles.title}>PGIRASA</Text>
         <TextInput

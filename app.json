@@ -18,14 +18,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bunddleIdentifier": "com.colsubsidio.norte"
+      "supportsTablet": true
     },
     "android": {
       "package": "com.colsubsidio.norte",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#FFFFFF",
+        "jsEngine": "hermes"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAkj4zhb-s01U_2kHb6HSn8mZRShTIlSzU"
+        }
       },
       "permissions": [
         "CAMERA_ROLL",

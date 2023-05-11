@@ -1,19 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import moment from 'moment';
-import { addTechnologyDocument } from '../../../utils/actions'
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  KeyboardAvoidingView,
+  ScrollView,
+  Alert,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import moment from "moment";
+import { addTechnologyDocument } from "../../../utils/actions";
 
-export default function Technology( { route: { params: { projectId } } } ) {
+export default function Technology({
+  route: {
+    params: { projectId },
+  },
+}) {
   console.log("ID del proyecto recibido:", projectId);
-  const [startDateEquipmentPurchase, setStartDateEquipmentPurchase] = useState("");
+  const [startDateEquipmentPurchase, setStartDateEquipmentPurchase] =
+    useState("");
   const [endDateEquipmentPurchase, setEndDateEquipmentPurchase] = useState("");
-  const [startDateTechnicalVisitNetworks, setStartDateTechnicalVisitNetworks] = useState("");
-  const [endDateTechnicalVisitNetworks, setEndDateTechnicalVisitNetworks] = useState("");
-  const [startDateInstallationCommunicationChannel, setStartDateInstallationCommunicationChannel] = useState("");
-  const [endDateInstallationCommunicationChannel, setEndDateInstallationCommunicationChannel] = useState("");
-  const [startDateEquipmentInstallation, setStartDateEquipmentInstallation] = useState("");
-  const [endDateEquipmentInstallation, setEndDateEquipmentInstallation] = useState("");
+  const [startDateTechnicalVisitNetworks, setStartDateTechnicalVisitNetworks] =
+    useState("");
+  const [endDateTechnicalVisitNetworks, setEndDateTechnicalVisitNetworks] =
+    useState("");
+  const [
+    startDateInstallationCommunicationChannel,
+    setStartDateInstallationCommunicationChannel,
+  ] = useState("");
+  const [
+    endDateInstallationCommunicationChannel,
+    setEndDateInstallationCommunicationChannel,
+  ] = useState("");
+  const [startDateEquipmentInstallation, setStartDateEquipmentInstallation] =
+    useState("");
+  const [endDateEquipmentInstallation, setEndDateEquipmentInstallation] =
+    useState("");
   const [startDateTests, setStartDateTests] = useState("");
   const [endDateTests, setEndDateTests] = useState("");
   const [startDateKeysAndUsers, setStartDateKeysAndUsers] = useState("");
@@ -36,11 +59,14 @@ export default function Technology( { route: { params: { projectId } } } ) {
           setEndDateEquipmentPurchase(storedEndDateEquipmentPurchase);
         }
 
-        const storedStartDateTechnicalVisitNetworks = await AsyncStorage.getItem(
-          "startDateTechnicalVisitNetworks-" + projectId
-        );
+        const storedStartDateTechnicalVisitNetworks =
+          await AsyncStorage.getItem(
+            "startDateTechnicalVisitNetworks-" + projectId
+          );
         if (storedStartDateTechnicalVisitNetworks) {
-          setStartDateTechnicalVisitNetworks(storedStartDateTechnicalVisitNetworks);
+          setStartDateTechnicalVisitNetworks(
+            storedStartDateTechnicalVisitNetworks
+          );
         }
         const storedEndDateTechnicalVisitNetworks = await AsyncStorage.getItem(
           "endDateTechnicalVisitNetworks-" + projectId
@@ -49,24 +75,32 @@ export default function Technology( { route: { params: { projectId } } } ) {
           setEndDateTechnicalVisitNetworks(storedEndDateTechnicalVisitNetworks);
         }
 
-        const storedStartDateInstallationCommunicationChannel = await AsyncStorage.getItem(
-          "startDateInstallationCommunicationChannel-" + projectId
-        );
+        const storedStartDateInstallationCommunicationChannel =
+          await AsyncStorage.getItem(
+            "startDateInstallationCommunicationChannel-" + projectId
+          );
         if (storedStartDateInstallationCommunicationChannel) {
-          setStartDateInstallationCommunicationChannel(storedStartDateInstallationCommunicationChannel);
+          setStartDateInstallationCommunicationChannel(
+            storedStartDateInstallationCommunicationChannel
+          );
         }
-        const storedEndDateInstallationCommunicationChannel = await AsyncStorage.getItem(
-          "endDateInstallationCommunicationChannel-" + projectId
-        );
+        const storedEndDateInstallationCommunicationChannel =
+          await AsyncStorage.getItem(
+            "endDateInstallationCommunicationChannel-" + projectId
+          );
         if (storedEndDateInstallationCommunicationChannel) {
-          setEndDateInstallationCommunicationChannel(storedEndDateInstallationCommunicationChannel);
+          setEndDateInstallationCommunicationChannel(
+            storedEndDateInstallationCommunicationChannel
+          );
         }
 
         const storedStartDateEquipmentInstallation = await AsyncStorage.getItem(
           "startDateEquipmentInstallation-" + projectId
         );
         if (storedStartDateEquipmentInstallation) {
-          setStartDateEquipmentInstallation(storedStartDateEquipmentInstallation);
+          setStartDateEquipmentInstallation(
+            storedStartDateEquipmentInstallation
+          );
         }
         const storedEndDateEquipmentInstallation = await AsyncStorage.getItem(
           "endDateEquipmentInstallation-" + projectId
@@ -100,7 +134,6 @@ export default function Technology( { route: { params: { projectId } } } ) {
         if (storedEndDateKeysAndUsers) {
           setEndDateKeysAndUsers(storedEndDateKeysAndUsers);
         }
-
       } catch (error) {
         console.log(error);
       }
@@ -140,10 +173,13 @@ export default function Technology( { route: { params: { projectId } } } ) {
         startDateEquipmentPurchase,
         endDateEquipmentPurchase
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -161,7 +197,12 @@ export default function Technology( { route: { params: { projectId } } } ) {
   };
 
   const handleSaveTechnicalVisitNetworks = async () => {
-    if (validateDates(startDateTechnicalVisitNetworks, endDateTechnicalVisitNetworks)) {
+    if (
+      validateDates(
+        startDateTechnicalVisitNetworks,
+        endDateTechnicalVisitNetworks
+      )
+    ) {
       addTechnologyDocument(
         projectId,
         "Technical Visit Networks",
@@ -174,10 +215,13 @@ export default function Technology( { route: { params: { projectId } } } ) {
         startDateTechnicalVisitNetworks,
         endDateTechnicalVisitNetworks
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -195,7 +239,12 @@ export default function Technology( { route: { params: { projectId } } } ) {
   };
 
   const handleSaveInstallationCommunicationChannel = async () => {
-    if (validateDates(startDateInstallationCommunicationChannel, endDateInstallationCommunicationChannel)) {
+    if (
+      validateDates(
+        startDateInstallationCommunicationChannel,
+        endDateInstallationCommunicationChannel
+      )
+    ) {
       addTechnologyDocument(
         projectId,
         "Installation Communication channel",
@@ -208,10 +257,13 @@ export default function Technology( { route: { params: { projectId } } } ) {
         startDateInstallationCommunicationChannel,
         endDateInstallationCommunicationChannel
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -229,7 +281,12 @@ export default function Technology( { route: { params: { projectId } } } ) {
   };
 
   const handleSaveEquipmentInstallation = async () => {
-    if (validateDates(startDateEquipmentInstallation, endDateEquipmentInstallation)) {
+    if (
+      validateDates(
+        startDateEquipmentInstallation,
+        endDateEquipmentInstallation
+      )
+    ) {
       addTechnologyDocument(
         projectId,
         "Equipment Installation",
@@ -242,10 +299,13 @@ export default function Technology( { route: { params: { projectId } } } ) {
         startDateEquipmentInstallation,
         endDateEquipmentInstallation
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -264,32 +324,27 @@ export default function Technology( { route: { params: { projectId } } } ) {
 
   const handleSaveTests = async () => {
     if (validateDates(startDateTests, endDateTests)) {
-      addTechnologyDocument(
-        projectId,
-        "Tests",
-        startDateTests,
-        endDateTests
-      );
+      addTechnologyDocument(projectId, "Tests", startDateTests, endDateTests);
       console.log(
         "Datos enviados a la DB:",
         projectId,
         startDateTests,
         endDateTests
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
           "startDateTests-" + projectId,
           startDateTests
         );
-        await AsyncStorage.setItem(
-          "endDateTests-" + projectId,
-          endDateTests
-        );
+        await AsyncStorage.setItem("endDateTests-" + projectId, endDateTests);
       } catch (error) {
         console.log(error);
       }
@@ -310,10 +365,13 @@ export default function Technology( { route: { params: { projectId } } } ) {
         startDateKeysAndUsers,
         endDateKeysAndUsers
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -329,7 +387,6 @@ export default function Technology( { route: { params: { projectId } } } ) {
       }
     }
   };
-
 
   return (
     <KeyboardAvoidingView style={styles.container}>
@@ -347,7 +404,10 @@ export default function Technology( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateEquipmentPurchase}
           value={endDateEquipmentPurchase}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveEquipmentPurchase} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveEquipmentPurchase}
+        />
 
         <Text style={styles.title}>Visita Técnica Redes</Text>
         <TextInput
@@ -362,7 +422,10 @@ export default function Technology( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateTechnicalVisitNetworks}
           value={endDateTechnicalVisitNetworks}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveTechnicalVisitNetworks} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveTechnicalVisitNetworks}
+        />
 
         <Text style={styles.title}>Instalación de Canal de Comunicación</Text>
         <TextInput
@@ -377,7 +440,10 @@ export default function Technology( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateInstallationCommunicationChannel}
           value={endDateInstallationCommunicationChannel}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveInstallationCommunicationChannel} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveInstallationCommunicationChannel}
+        />
 
         <Text style={styles.title}>Instalación de Equipos</Text>
         <TextInput
@@ -392,7 +458,10 @@ export default function Technology( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateEquipmentInstallation}
           value={endDateEquipmentInstallation}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveEquipmentInstallation} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveEquipmentInstallation}
+        />
 
         <Text style={styles.title}>Pruebas</Text>
         <TextInput

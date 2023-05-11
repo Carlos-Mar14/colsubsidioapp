@@ -1,10 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import moment from 'moment';
-import { addContractingDocument } from '../../../utils/actions'
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  KeyboardAvoidingView,
+  ScrollView,
+  Alert,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import moment from "moment";
+import { addContractingDocument } from "../../../utils/actions";
 
-export default function Contracting( { route: { params: { projectId } } } ) {
+export default function Contracting({
+  route: {
+    params: { projectId },
+  },
+}) {
   console.log("ID del proyecto recibido:", projectId);
   const [startDateSignature, setStartDateSignature] = useState("");
   const [endDateSignature, setEndDateSignature] = useState("");
@@ -78,10 +90,13 @@ export default function Contracting( { route: { params: { projectId } } } ) {
         startDateSignature,
         endDateSignature
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -97,7 +112,7 @@ export default function Contracting( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   const handleSaveLocalReceipt = async () => {
     if (validateDates(startDateLocalReceipt, endDateLocalReceipt)) {
       addContractingDocument(
@@ -112,10 +127,13 @@ export default function Contracting( { route: { params: { projectId } } } ) {
         startDateLocalReceipt,
         endDateLocalReceipt
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -131,7 +149,7 @@ export default function Contracting( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView>
@@ -188,4 +206,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 });
-

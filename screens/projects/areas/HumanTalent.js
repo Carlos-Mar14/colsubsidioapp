@@ -1,22 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import moment from 'moment';
-import { addHumanTalentDocument } from '../../../utils/actions'
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  KeyboardAvoidingView,
+  ScrollView,
+  Alert,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import moment from "moment";
+import { addHumanTalentDocument } from "../../../utils/actions";
 
-export default function HumanTalent( { route: { params: { projectId } } } ) {
+export default function HumanTalent({
+  route: {
+    params: { projectId },
+  },
+}) {
   console.log("ID del proyecto recibido:", projectId);
   const [startDateRecruitment, setStartDateRecruitment] = useState("");
   const [endDateRecruitment, setEndDateRecruitment] = useState("");
   const [startDatePlantCreation, setStartDatePlantCreation] = useState("");
   const [endDatePlantCreation, setEndDatePlantCreation] = useState("");
-  const [startDateRecruitmentOfPersonnel, setStartDateRecruitmentOfPersonnel] = useState("");
-  const [endDateRecruitmentOfPersonnel, setEndDateRecruitmentOfPersonnel] = useState("");
-  const [startDateDeliveryOfNewWorkersEndowment, setStartDateDeliveryOfNewWorkersEndowment] = useState("");
-  const [endDateDeliveryOfNewWorkersEndowment, setEndDateDeliveryOfNewWorkersEndowment] = useState("");
-  const [startDateInductionAndTraining, setStartDateInductionAndTraining] = useState("");
-  const [endDateInductionAndTraining, setEndDateInductionAndTraining] = useState("");
-  
+  const [startDateRecruitmentOfPersonnel, setStartDateRecruitmentOfPersonnel] =
+    useState("");
+  const [endDateRecruitmentOfPersonnel, setEndDateRecruitmentOfPersonnel] =
+    useState("");
+  const [
+    startDateDeliveryOfNewWorkersEndowment,
+    setStartDateDeliveryOfNewWorkersEndowment,
+  ] = useState("");
+  const [
+    endDateDeliveryOfNewWorkersEndowment,
+    setEndDateDeliveryOfNewWorkersEndowment,
+  ] = useState("");
+  const [startDateInductionAndTraining, setStartDateInductionAndTraining] =
+    useState("");
+  const [endDateInductionAndTraining, setEndDateInductionAndTraining] =
+    useState("");
+
   useEffect(() => {
     // Recuperar las fechas almacenadas al iniciar la aplicación
     const getStoredDates = async () => {
@@ -47,11 +69,14 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
           setEndDatePlantCreation(storedEndDatePlantCreation);
         }
 
-        const storedStartDateRecruitmentOfPersonnel = await AsyncStorage.getItem(
-          "startDateRecruitmentOfPersonnel-" + projectId
-        );
+        const storedStartDateRecruitmentOfPersonnel =
+          await AsyncStorage.getItem(
+            "startDateRecruitmentOfPersonnel-" + projectId
+          );
         if (storedStartDateRecruitmentOfPersonnel) {
-          setStartDateRecruitmentOfPersonnel(storedStartDateRecruitmentOfPersonnel);
+          setStartDateRecruitmentOfPersonnel(
+            storedStartDateRecruitmentOfPersonnel
+          );
         }
         const storedEndDateRecruitmentOfPersonnel = await AsyncStorage.getItem(
           "endDateRecruitmentOfPersonnel-" + projectId
@@ -60,17 +85,23 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
           setEndDateRecruitmentOfPersonnel(storedEndDateRecruitmentOfPersonnel);
         }
 
-        const storedStartDateDeliveryOfNewWorkersEndowment = await AsyncStorage.getItem(
-          "startDateDeliveryOfNewWorkersEndowment-" + projectId
-        );
+        const storedStartDateDeliveryOfNewWorkersEndowment =
+          await AsyncStorage.getItem(
+            "startDateDeliveryOfNewWorkersEndowment-" + projectId
+          );
         if (storedStartDateDeliveryOfNewWorkersEndowment) {
-          setStartDateDeliveryOfNewWorkersEndowment(storedStartDateDeliveryOfNewWorkersEndowment);
+          setStartDateDeliveryOfNewWorkersEndowment(
+            storedStartDateDeliveryOfNewWorkersEndowment
+          );
         }
-        const storedEndDateDeliveryOfNewWorkersEndowment = await AsyncStorage.getItem(
-          "endDateDeliveryOfNewWorkersEndowment-" + projectId
-        );
+        const storedEndDateDeliveryOfNewWorkersEndowment =
+          await AsyncStorage.getItem(
+            "endDateDeliveryOfNewWorkersEndowment-" + projectId
+          );
         if (storedEndDateDeliveryOfNewWorkersEndowment) {
-          setEndDateDeliveryOfNewWorkersEndowment(storedEndDateDeliveryOfNewWorkersEndowment);
+          setEndDateDeliveryOfNewWorkersEndowment(
+            storedEndDateDeliveryOfNewWorkersEndowment
+          );
         }
 
         const storedStartDateInductionAndTraining = await AsyncStorage.getItem(
@@ -124,10 +155,13 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
         startDateRecruitment,
         endDateRecruitment
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -143,7 +177,7 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
       }
     }
   };
-  
+
   const handleSavePlantCreation = async () => {
     if (validateDates(startDatePlantCreation, endDatePlantCreation)) {
       addHumanTalentDocument(
@@ -158,10 +192,13 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
         startDatePlantCreation,
         endDatePlantCreation
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -179,7 +216,12 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
   };
 
   const handleSaveRecruitmentOfPersonnel = async () => {
-    if (validateDates(startDateRecruitmentOfPersonnel, endDateRecruitmentOfPersonnel)) {
+    if (
+      validateDates(
+        startDateRecruitmentOfPersonnel,
+        endDateRecruitmentOfPersonnel
+      )
+    ) {
       addHumanTalentDocument(
         projectId,
         "Recruitment Of Personnel",
@@ -192,10 +234,13 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
         startDateRecruitmentOfPersonnel,
         endDateRecruitmentOfPersonnel
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -213,7 +258,12 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
   };
 
   const handleSaveDeliveryOfNewWorkersEndowment = async () => {
-    if (validateDates(startDateDeliveryOfNewWorkersEndowment, endDateDeliveryOfNewWorkersEndowment)) {
+    if (
+      validateDates(
+        startDateDeliveryOfNewWorkersEndowment,
+        endDateDeliveryOfNewWorkersEndowment
+      )
+    ) {
       addHumanTalentDocument(
         projectId,
         "Delivery of New Worker's Endowment",
@@ -226,10 +276,13 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
         startDateDeliveryOfNewWorkersEndowment,
         endDateDeliveryOfNewWorkersEndowment
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -247,7 +300,9 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
   };
 
   const handleSaveInductionAndTraining = async () => {
-    if (validateDates(startDateInductionAndTraining, endDateInductionAndTraining)) {
+    if (
+      validateDates(startDateInductionAndTraining, endDateInductionAndTraining)
+    ) {
       addHumanTalentDocument(
         projectId,
         "Induction and Training",
@@ -260,10 +315,13 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
         startDateInductionAndTraining,
         endDateInductionAndTraining
       );
-  
+
       // Mostrar mensaje de confirmación
-      Alert.alert("Datos guardados", "Los datos se han guardado correctamente en la base de datos.");
-  
+      Alert.alert(
+        "Datos guardados",
+        "Los datos se han guardado correctamente en la base de datos."
+      );
+
       // Almacenar las fechas en el dispositivo del usuario
       try {
         await AsyncStorage.setItem(
@@ -326,7 +384,10 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateRecruitmentOfPersonnel}
           value={endDateRecruitmentOfPersonnel}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveRecruitmentOfPersonnel} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveRecruitmentOfPersonnel}
+        />
 
         <Text style={styles.title}>Entrega Dotación Nuevos Trabajadores</Text>
         <TextInput
@@ -341,7 +402,10 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateDeliveryOfNewWorkersEndowment}
           value={endDateDeliveryOfNewWorkersEndowment}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveDeliveryOfNewWorkersEndowment} />
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveDeliveryOfNewWorkersEndowment}
+        />
 
         <Text style={styles.title}>Inducción y Formación</Text>
         <TextInput
@@ -356,8 +420,10 @@ export default function HumanTalent( { route: { params: { projectId } } } ) {
           onChangeText={setEndDateInductionAndTraining}
           value={endDateInductionAndTraining}
         />
-        <Button title="Guardar/Actualizar" onPress={handleSaveInductionAndTraining} />
-
+        <Button
+          title="Guardar/Actualizar"
+          onPress={handleSaveInductionAndTraining}
+        />
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -382,4 +448,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 });
-

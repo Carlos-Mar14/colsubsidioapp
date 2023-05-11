@@ -1,23 +1,21 @@
-import { StyleSheet } from 'react-native'
-import React from 'react'
-import { Overlay } from 'react-native-elements'
+import { StyleSheet } from "react-native";
+import React from "react";
+import { Overlay } from "react-native-elements";
 
-export default function Modal( {isVisible, setVisible, children}) {
+export default function Modal({ isVisible, setVisible, children }) {
   return (
     <Overlay
-        isVisible={isVisible}
-        overlayStyle={styles.overlay}
-        onBackdropPress={() => setVisible(false)}
+      isVisible={isVisible}
+      overlayStyle={styles.overlay}
+      onBackdropPress={() => setVisible(false)}
     >
-        {
-            children
-        }
+      {children}
     </Overlay>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
-    overlay:{
-        width: "90%"
-    }
-})
+  overlay: {
+    width: "90%",
+  },
+});

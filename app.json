@@ -24,8 +24,7 @@
       "package": "com.colsubsidio.norte",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF",
-        "jsEngine": "hermes"
+        "backgroundColor": "#FFFFFF"
       },
       "config": {
         "googleMaps": {
